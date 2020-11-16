@@ -1,4 +1,4 @@
-var quizQuestions = [
+var surveyQuestions = [
   {
       // Question 1
       question: "Question 1: What is your first answer?",
@@ -92,4 +92,4 @@ var quizQuestions = [
   }
 ];
 
-export default quizQuestions;
+export default surveyQuestions;
