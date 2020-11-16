@@ -1,0 +1,8 @@
+version: '3.1'
+
+services:
+  app:
+    build: .
+    image: app
+    ports:
+      - 8081:80
