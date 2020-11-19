@@ -31,7 +31,8 @@ class App extends Component {
   handleAnswerSelected(event) {
     this.setUserAnswer(event.currentTarget.value);
 
-    if (this.state.questionId < surveyQuestions.length) {
+    const nextQuestionId = surveyQuestions[this.state.questionId-1].answers[event.currentTarget.value].next
+    if (nextQuestionId < surveyQuestions.length) {
       setTimeout(() => this.setNextQuestion(), 300);
     } else {
       setTimeout(() => this.setResults(this.getResults()), 300);
@@ -47,7 +48,6 @@ class App extends Component {
 
   setNextQuestion() {
     const questionId = surveyQuestions[this.state.questionId-1].answers[this.state.answer].next;
-
     this.setState({
       questionId: questionId,
       question: surveyQuestions[questionId-1].question,
