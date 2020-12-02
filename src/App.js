@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import surveyQuestions from './api/surveyQuestions';
+import ContactForm from './components/ContactForm';
 import Survey from './components/Survey';
 import Result from './components/Result';
 import logo from './svg/logo.svg';
@@ -15,10 +16,12 @@ class App extends Component {
       answerOptions: [],
       answer: '',
       actionsNeeded: [],
-      result: ''
+      result: '',
+      details: {}
     };
 
     this.handleAnswerSelected = this.handleAnswerSelected.bind(this);
+    this.setContactDetails = this.setContactDetails.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +31,12 @@ class App extends Component {
     });
   }
 
+  setContactDetails(details) {
+    this.setState((state, props) => ({
+      details: details
+    }));
+    console.log(details);
+  }
   handleAnswerSelected(event) {
     this.setUserAnswer(event.currentTarget.value);
 
@@ -64,6 +73,9 @@ class App extends Component {
     this.setState({ result: result });
   }
 
+  renderContactForm() {
+    return <ContactForm setContactDetails={this.setContactDetails}/>;
+  }
   renderSurvey() {
     return (
       <Survey
@@ -88,7 +100,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Compliance Questionnaire</h2>
         </div>
-        {this.state.result ? this.renderResult() : this.renderSurvey()}
+        {this.state.result ? this.renderResult() : ((Object.keys(this.state.details).length == 0) ? this.renderContactForm() : this.renderSurvey())}
       </div>
     );
   }
